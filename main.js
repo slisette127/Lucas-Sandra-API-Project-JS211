@@ -1,18 +1,29 @@
-const pokemonListContainer = document.getElementById('pokemon-list');
+const addressBook = document.getElementById('userName');
 
-const URL = ` https://pokeapi.co/api/v2/pokemon/`;
+const API = "https://randomuser.me/api/?results=10";
 
-
-fetch(URL).then((response) => response.json()).then((data) => {
-  console.log(data.results)
-  data.results.forEach((pokemon) => {
-    console.log(pokemon);
-  const li = document.createElement('li');
-  const textNode = document.createTextNode(pokemon.name);
-      li.appendChild(textNode); 
-      pokemonListContainer.appendChild(li)  
-  })  
-  
+fetch(API)
+.then((response) => response.json())
+.then((data) => {
  
+  data.results.forEach((person) => {
+    
+    const li = document.createElement("li");
 
-})
+    const img = document.createElement("img");
+    img.src = person.picture.thumbnail;
+    img.alt = person.name.first;
+
+    li.appendChild(img);
+
+  //   const h4 = document.createElement("h4");
+  //   h4.innerText = `${person.name.first} - ${person.name.last}`;
+    
+
+  //   li.innerText = `${person.name.first} - ${person.name.last}`;
+  //   li.appendChild(h4);
+  //      //append the li to the ul
+  //   list.appendChild(li);
+  // });
+    
+  // });
