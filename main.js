@@ -5,7 +5,7 @@ window.onload = function () {
 }
 
 const fetchUser = () => {
-  fetch("https://randomuser.me/api/?results=5")
+  fetch("https://randomuser.me/api/?results=10")
     .then(res => res.json())
     .then(data => data.results.forEach(item => arrayOfUsers.push(item)))
   console.log(arrayOfUsers)
@@ -39,6 +39,6 @@ const loadUsers = () => {
 
 const showInfo = (user, li, displayBtn) => {
   displayBtn.innerHTML = ""
-  li.innerText += `Age: ${user.dob.age},
-  Gender: ${user.gender}, Email: ${user.email}`
+  li.innerText += ` Age: ${user.dob.age}
+  Gender: ${user.gender} Email: ${user.email}`
 }
