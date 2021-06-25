@@ -1,29 +1,44 @@
-const addressBook = document.getElementById('userName');
+let arrayOfUsers = []
 
-const API = "https://randomuser.me/api/?results=10";
+window.onload = function () {
+  fetchUser()
+}
 
-fetch(API)
-.then((response) => response.json())
-.then((data) => {
- 
-  data.results.forEach((person) => {
+const fetchUser = () => {
+  fetch("https://randomuser.me/api/?results=10")
+    .then(res => res.json())
+    .then(data => data.results.forEach(item => arrayOfUsers.push(item)))
+  console.log(arrayOfUsers)
+}
+
+
+const loadUsers = () => {
+  const allUsers = document.getElementById("users")
+  arrayOfUsers.map(user => {
     
-    const li = document.createElement("li");
+    //user
+    const li = document.createElement("li")
+    li.innerText = `${user.name.last}, ${user.name.first}`
+    allUsers.appendChild(li)
 
-    const img = document.createElement("img");
-    img.src = person.picture.thumbnail;
-    img.alt = person.name.first;
+   //img
+    const img = document.createElement("img")
+    img.setAttribute("src", user.picture.large)
+    allUsers.appendChild(img)
 
-    li.appendChild(img);
+    //Show info button
+    const displayBtn = document.createElement("button")
+    displayBtn.innerHTML = "More Info"
+    displayBtn.addEventListener("click", function () {
+      showInfo(user, li, displayBtn)
+    })
+    li.appendChild(displayBtn)
+  })
+}
 
-  //   const h4 = document.createElement("h4");
-  //   h4.innerText = `${person.name.first} - ${person.name.last}`;
-    
 
-  //   li.innerText = `${person.name.first} - ${person.name.last}`;
-  //   li.appendChild(h4);
-  //      //append the li to the ul
-  //   list.appendChild(li);
-  // });
-    
-  // });
+const showInfo = (user, li, displayBtn) => {
+  displayBtn.innerHTML = ""
+  li.innerText += ` Age: ${user.dob.age}
+  Gender: ${user.gender} Email: ${user.email}`
+}
